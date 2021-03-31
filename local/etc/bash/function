@@ -1,0 +1,95 @@
+#!/bin/bash
+# bash_functions
+
+pyact()
+{
+	if [[ $1 == "--list" ]];
+	then
+		for venv in ~/.local/var/venv/*;
+		do
+			echo $(basename $venv);
+		done;
+	else
+		source ~/.local/var/venv/$1/bin/activate;
+	fi
+}
+
+extract()
+{
+	ARCHIVE="$1"
+
+	if [[ ! -f $ARCHIVE ]]
+	then
+		echo "$ARCHIVE does not exist"
+		exit 1
+	fi
+
+	ARCHIVE="$(readlink -f "$ARCHIVE")"
+	TARGET=${ARCHIVE%%.*}
+
+	if [[ -z $TARGET ]]
+	then
+		echo "Empty Target"
+		exit 1
+	fi
+
+	mkdir -p $TARGET
+
+	if [[ ! -d $TARGET ]]
+	then
+		exho "No Directory"
+		exit 1
+	fi
+
+	if [[ ! -w $TARGET ]]
+	then
+		exho "Permission Denied"
+		exit 1
+	fi
+
+	cd "$TARGET"
+	case "$ARCHIVE" in
+	    *.tar.bz2)   tar xjf "$ARCHIVE"     ;;
+	    *.tar.gz)    tar xzf "$ARCHIVE"     ;;
+	    *.bz2)       bunzip2 "$ARCHIVE"     ;;
+	    *.rar)       unrar x "$ARCHIVE"     ;;
+	    *.gz)        gunzip "$ARCHIVE"      ;;
+	    *.tar)       tar xf "$ARCHIVE"      ;;
+	    *.tbz2)      tar xjf "$ARCHIVE"     ;;
+	    *.tgz)       tar xzf "$ARCHIVE"     ;;
+	    *.zip)       unzip "$ARCHIVE"       ;;
+	    *.Z)         uncompress "$ARCHIVE"  ;;
+	    *.7z)        7z x "$ARCHIVE"        ;;
+	    *)           echo "Unknown Archive" ;;
+	esac
+	cd ..
+}
+
+parse_git_branch()
+{
+	git status 2> /dev/null | grep "nothing to commit" &> /dev/null;
+	if [ "$?" -eq "0" ]
+	then
+		echo -e "${CONSOLE_CGreen}$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e
+        's/* \(.*\)/\1 /')${CONSOLE_CColor_Off}";
+    else
+		echo -e "${CONSOLE_CIRed}$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e
+        's/* \(.*\)/\1 /')${CONSOLE_CColor_Off}";
+    fi
+}
+
+suc_last_command()
+{
+	if [ "$?" -eq "0" ]
+	then
+		echo -e "${CONSOLE_CGreen}";
+    else
+		echo -e "${CONSOLE_CIRed}";
+    fi
+}
+
+export -f parse_git_branch
+export -f suc_last_command
+export -f extract
+export -f pyact
+

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cp 90-thinkpad-keyboard.hwdb /etc/udev/hwdb.d/
+

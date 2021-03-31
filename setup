@@ -1,0 +1,27 @@
+#!/bin/bash
+#
+# Configuration Files Auto-Setup Script
+# Ed Younis
+
+mkdir -p "$HOME/.local"
+cp -a "$PWD/local/"* "$HOME/.local"
+cp "$PWD/profile" "$HOME/.profile"
+cp "$PWD/bashrc" "$HOME/.bashrc"
+cp "$PWD/bashrc" "$HOME/.bash_profile"
+
+# Creating Home Folders
+mkdir -p "$HOME/.local"
+mkdir -p "$HOME/.local/bin"
+mkdir -p "$HOME/.local/etc"
+mkdir -p "$HOME/.local/include"
+mkdir -p "$HOME/.local/lib"
+mkdir -p "$HOME/.local/share"
+mkdir -p "$HOME/.local/tmp"
+mkdir -p "$HOME/.local/var"
+
+mkdir -p "$HOME/.local/var/gnupg"
+mkdir -p "$HOME/.local/var/less"
+mkdir -p "$HOME/.local/var/bash"
+mkdir -p "$HOME/.local/etc/jupyter"
+mkdir -p "$HOME/.local/etc/npm"
+

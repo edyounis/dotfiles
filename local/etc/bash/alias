@@ -1,0 +1,64 @@
+#!/bin/bash
+# bash_aliases
+
+# Shell Operations
+alias c="clear"
+alias cc="c && c"
+alias ccm="c && c && make"
+alias ccmr="c && c && make && make run"
+alias quit=exit
+alias now='date +"%T"'
+alias nowtime=now
+alias nowdate='date +"%d-%m-%Y"'
+
+alias reload='source $XDG_CONFIG_HOME/bash/login && echo "Bash profile installed."'
+alias hs="history | tac | grep $1 -m20"
+alias hl="history -c && history -r"
+alias tree='tree -C'
+
+alias e='nvim'
+
+# Directory and File Operations
+alias ls="ls -1Lh --classify --color=always --group-directories-first"
+alias ll="ls -al"
+alias  l="ls"
+alias la="ls -A"
+alias le="ls -lisA"
+
+alias mkdir="mkdir -pv"
+alias rmdir="rm -rfv"
+
+alias ..="cd .."
+alias ...="cd ../.."
+alias .3="cd ../../.."
+alias .4="cd ../../../.."
+alias .5="cd ../../../../.."
+
+alias r='ranger --choosedir=$XDG_CACHE_HOME/.rangerdir; LASTDIR=`cat $XDG_CACHE_HOME/.rangerdir`; cd "$LASTDIR"; rm $XDG_CACHE_HOME/.rangerdir'
+
+# Grep
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias g='grep -i'
+
+# Git Operations
+alias gs="git status -sb"
+alias gl="git log --pretty=format:\"%C(yellow)%h %Creset%ad%Cblue [%cn] %Creset%s\" --decorate --date=short"
+alias gu="git add -u"
+alias ga="git add -A"
+alias gd="git diff --cached"
+alias gb="git branch"
+alias gc="git checkout"
+alias gcm="git commit -vm"
+alias gph="git push"
+alias gpl="git pull"
+
+# Process Operations
+alias p="ps af -o user,%cpu,%mem,pid,comm --sort %cpu"
+alias pa="ps af -o user,start,time,thcount,%cpu,%mem,vsz,ppid,pid,comm --sort %cpu"
+alias pe="ps axf -o user,start,time,thcount,%cpu,%mem,vsz,ppid,pid,comm --sort %cpu"
+
+# Yay
+alias yay="yay --sudoloop"
+

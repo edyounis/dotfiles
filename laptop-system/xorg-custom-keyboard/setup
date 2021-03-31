@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cp my_symbols /usr/share/X11/xkb/symbols
+cp xorg.conf.d/90-keyboard.conf /usr/share/X11/xorg.conf.d
